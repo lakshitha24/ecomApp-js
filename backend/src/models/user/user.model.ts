@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 import { User } from "./user.interface";
-import { bcrypt } from "bcryptjs";
+import * as bcrypt from "bcryptjs";
 
 const UserSchema = new Schema<User>({
   first_name: { type: String, required: true },
@@ -13,7 +13,7 @@ UserSchema.pre("save", async function () {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-UserSchema.methods.matchPassword = async function (enteredPassword) {
+UserSchema.methods.matchPassword = async function (enteredPassword:string) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 const UserModel = model<User>("User", UserSchema);
