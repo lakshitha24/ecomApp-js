@@ -19,6 +19,7 @@ const updateProduct = async (value: Product, id: string) => {
       updateProductData.description = description;
     }
     updateProductData.save();
+    return updateProductData;
   } catch (e) {
     log.info(e);
   }
